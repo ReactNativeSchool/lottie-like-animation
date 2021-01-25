@@ -13,7 +13,7 @@ export const Feed = ({ navigation }) => {
         username: "jane_doe",
       },
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      isLiked: false,
+      isLiked: true,
     },
     {
       _id: "2",

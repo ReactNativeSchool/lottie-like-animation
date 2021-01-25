@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import LottieView from "lottie-react-native";
 
 const Screen = Dimensions.get("window");
 
@@ -57,9 +58,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   heart: {
-    width: 20,
-    height: 20,
-    tintColor: "#6e7f8d",
+    width: 40,
+    height: 40,
   },
   heartFilled: {
     tintColor: "#df245e",
@@ -80,6 +80,26 @@ export const Post = ({
   indent,
   onLikePost = null,
 }) => {
+  const animation = React.useRef(null);
+  const isFirstRun = React.useRef(true);
+
+  React.useEffect(() => {
+    if (isFirstRun.current) {
+      if (isLiked) {
+        animation.current.play(66, 66);
+      } else {
+        animation.current.play(19, 19);
+      }
+      isFirstRun.current = false;
+    } else {
+      if (isLiked) {
+        animation.current.play(19, 50);
+      } else {
+        animation.current.play(0, 19);
+      }
+    }
+  }, [isLiked]);
+
   return (
     <TouchableOpacity onPress={onRowPress}>
       <View style={[styles.row, indent && styles.rowIndented]}>
@@ -99,7 +119,7 @@ export const Post = ({
                 onLikePost && onLikePost(_id);
               }}
             >
-              {isLiked ? (
+              {/* {isLiked ? (
                 <Image
                   style={[styles.heart, styles.heartFilled]}
                   source={require("../assets/icons/heart.png")}
@@ -109,7 +129,15 @@ export const Post = ({
                   style={styles.heart}
                   source={require("../assets/icons/heart-border.png")}
                 />
-              )}
+              )} */}
+              {/* https://lottiefiles.com/44921-like-animation */}
+              <LottieView
+                ref={animation}
+                style={styles.heart}
+                source={require("../assets/lottie/like.json")}
+                autoPlay={false}
+                loop={false}
+              />
             </TouchableOpacity>
             <Text style={styles.textDate}>
               {formatDistanceToNow(new Date(), { addSuffix: true })}
