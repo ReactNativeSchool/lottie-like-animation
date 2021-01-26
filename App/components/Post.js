@@ -83,9 +83,8 @@ export const Post = ({
   text,
   isLiked = false,
   onRowPress,
-  publishedAt,
   indent,
-  onLikePost = null,
+  onLikePost = () => {},
 }) => {
   const animation = React.useRef(null);
   const isFirstRun = React.useRef(true);
@@ -98,12 +97,10 @@ export const Post = ({
         animation.current.play(19, 19);
       }
       isFirstRun.current = false;
+    } else if (isLiked) {
+      animation.current.play(19, 50);
     } else {
-      if (isLiked) {
-        animation.current.play(19, 50);
-      } else {
-        animation.current.play(0, 19);
-      }
+      animation.current.play(0, 19);
     }
   }, [isLiked]);
 
@@ -123,20 +120,9 @@ export const Post = ({
           <View style={styles.actions}>
             <TouchableOpacity
               onPress={() => {
-                onLikePost && onLikePost(_id);
+                onLikePost(_id);
               }}
             >
-              {/* {isLiked ? (
-                <Image
-                  style={[styles.heart, styles.heartFilled]}
-                  source={require("../assets/icons/heart.png")}
-                />
-              ) : (
-                <Image
-                  style={styles.heart}
-                  source={require("../assets/icons/heart-border.png")}
-                />
-              )} */}
               {/* https://lottiefiles.com/44921-like-animation */}
               <LottieView
                 ref={animation}

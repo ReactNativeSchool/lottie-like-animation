@@ -3,7 +3,7 @@ import { FlatList, View } from "react-native";
 
 import { Post, Separator } from "../components/Post";
 
-export const Feed = ({ navigation }) => {
+export const Feed = () => {
   const [feed, setFeed] = React.useState([
     {
       _id: "1",
@@ -35,7 +35,7 @@ export const Feed = ({ navigation }) => {
         <Post
           {...item}
           onLikePost={(_id) =>
-            setFeed((f) => {
+            setFeed(() => {
               return feed.map((post) => {
                 if (post._id === _id) {
                   return { ...post, isLiked: !post.isLiked };

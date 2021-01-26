@@ -1,5 +1,4 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -11,7 +10,7 @@ const AppStackScreen = () => (
     <AppStack.Screen
       name="Feed"
       component={Feed}
-      options={({ navigation }) => ({
+      options={() => ({
         headerTitle: "Home",
       })}
     />
