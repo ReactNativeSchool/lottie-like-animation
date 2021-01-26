@@ -18,15 +18,8 @@ const AppStackScreen = () => (
   </AppStack.Navigator>
 );
 
-const ModalStack = createStackNavigator();
-const ModalStackScreen = () => (
-  <ModalStack.Navigator mode="modal" headerMode="none">
-    <ModalStack.Screen name="App" component={AppStackScreen} />
-  </ModalStack.Navigator>
-);
-
 export default () => (
   <NavigationContainer>
-    <ModalStackScreen />
+    <AppStackScreen />
   </NavigationContainer>
 );

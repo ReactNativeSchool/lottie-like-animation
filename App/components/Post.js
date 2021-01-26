@@ -56,13 +56,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    height: 20,
   },
   heart: {
-    width: 40,
-    height: 40,
+    width: 20,
+    height: 20,
+    tintColor: "#6e7f8d",
   },
   heartFilled: {
     tintColor: "#df245e",
+  },
+  heartLottie: {
+    width: 50,
+    height: 50,
+    marginLeft: -5,
   },
   textDate: {
     color: "#6e7f8d",
@@ -133,7 +140,7 @@ export const Post = ({
               {/* https://lottiefiles.com/44921-like-animation */}
               <LottieView
                 ref={animation}
-                style={styles.heart}
+                style={styles.heartLottie}
                 source={require("../assets/lottie/like.json")}
                 autoPlay={false}
                 loop={false}
