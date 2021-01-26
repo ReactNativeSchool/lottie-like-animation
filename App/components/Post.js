@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from "react-native";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import LottieView from "lottie-react-native";
 
 const Screen = Dimensions.get("window");
 
@@ -66,11 +65,6 @@ const styles = StyleSheet.create({
   heartFilled: {
     tintColor: "#df245e",
   },
-  heartLottie: {
-    width: 50,
-    height: 50,
-    marginLeft: -5,
-  },
   textDate: {
     color: "#6e7f8d",
     fontSize: 14,
@@ -86,24 +80,6 @@ export const Post = ({
   indent,
   onLikePost = () => {},
 }) => {
-  const animation = React.useRef(null);
-  const isFirstRun = React.useRef(true);
-
-  React.useEffect(() => {
-    if (isFirstRun.current) {
-      if (isLiked) {
-        animation.current.play(66, 66);
-      } else {
-        animation.current.play(19, 19);
-      }
-      isFirstRun.current = false;
-    } else if (isLiked) {
-      animation.current.play(19, 50);
-    } else {
-      animation.current.play(0, 19);
-    }
-  }, [isLiked]);
-
   return (
     <TouchableOpacity onPress={onRowPress}>
       <View style={[styles.row, indent && styles.rowIndented]}>
@@ -123,14 +99,17 @@ export const Post = ({
                 onLikePost(_id);
               }}
             >
-              {/* https://lottiefiles.com/44921-like-animation */}
-              <LottieView
-                ref={animation}
-                style={styles.heartLottie}
-                source={require("../assets/lottie/like.json")}
-                autoPlay={false}
-                loop={false}
-              />
+              {isLiked ? (
+                <Image
+                  style={[styles.heart, styles.heartFilled]}
+                  source={require("../assets/icons/heart.png")}
+                />
+              ) : (
+                <Image
+                  style={styles.heart}
+                  source={require("../assets/icons/heart-border.png")}
+                />
+              )}
             </TouchableOpacity>
             <Text style={styles.textDate}>
               {formatDistanceToNow(new Date(), { addSuffix: true })}
